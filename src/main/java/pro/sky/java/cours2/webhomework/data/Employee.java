@@ -1,4 +1,4 @@
-package pro.sky.java.cours2.webhomework;
+package pro.sky.java.cours2.webhomework.data;
 
 
 import java.util.Objects;

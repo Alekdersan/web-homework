@@ -1,4 +1,6 @@
-package pro.sky.java.cours2.webhomework;
+package pro.sky.java.cours2.webhomework.service;
+
+import pro.sky.java.cours2.webhomework.data.Employee;
 
 public interface EmployeeService {
 

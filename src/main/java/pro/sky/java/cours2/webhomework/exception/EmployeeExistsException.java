@@ -1,4 +1,4 @@
-package pro.sky.java.cours2.webhomework;
+package pro.sky.java.cours2.webhomework.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
