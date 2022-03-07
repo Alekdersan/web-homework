@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.cours2.webhomework.data.Employee;
 import pro.sky.java.cours2.webhomework.service.EmployeeService;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping(path = "/employee")
 public class EmployeeController {
@@ -19,21 +21,28 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+    public String addEmployee(@RequestParam String firstName,
+                              @RequestParam String lastName) {
         Employee result = employeeService.addEmployee(firstName, lastName);
         return generateMessage(result, "успешно создан");
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+    public String removeEmployee(@RequestParam ("firstName") String firstName,
+                                 @RequestParam ("lastName") String lastName) {
         Employee result = employeeService.removeEmployee(firstName, lastName);
         return generateMessage(result, "удален");
     }
 
     @GetMapping(path = "/find")
-    public Employee findEmployee(@RequestParam String firstName,
-                                 @RequestParam String lastName) {
+    public Employee findEmployee(@RequestParam ("firstName") String firstName,
+                                 @RequestParam ("lastName") String lastName) {
         return employeeService.findEmployee(firstName, lastName);
+    }
+
+    @GetMapping(path = "/all")
+    public Collection<Employee> allEmployee() {
+        return employeeService.getAll();
     }
 
     private String generateMessage(Employee employee, String status) {

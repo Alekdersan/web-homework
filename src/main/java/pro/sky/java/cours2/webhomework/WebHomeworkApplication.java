@@ -10,5 +10,4 @@ public class WebHomeworkApplication {
 
         SpringApplication.run(WebHomeworkApplication.class, args);
     }
-
 }
