@@ -42,7 +42,7 @@ public class EmployeeController {
 
     @GetMapping(path = "/all")
     public Collection<Employee> allEmployee() {
-        return employeeService.getAll();
+        return employeeService.getAllEmployee();
     }
 
     private String generateMessage(Employee employee, String status) {
