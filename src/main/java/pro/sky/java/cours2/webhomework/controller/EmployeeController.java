@@ -21,28 +21,32 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam String firstName,
-                              @RequestParam String lastName) {
-        Employee result = employeeService.addEmployee(firstName, lastName);
+    public String addEmployee(@RequestParam("firstName") String firstName,
+                              @RequestParam("lastName") String lastName,
+                              @RequestParam("department") String department,
+                              @RequestParam("salary") int salary) {
+        Employee result = employeeService.addEmployee(firstName, lastName, department, salary);
         return generateMessage(result, "успешно создан");
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam ("firstName") String firstName,
-                                 @RequestParam ("lastName") String lastName) {
-        Employee result = employeeService.removeEmployee(firstName, lastName);
+    public String removeEmployee(@RequestParam("firstName") String firstName,
+                                 @RequestParam("lastName") String lastName,
+                                 @RequestParam("department") String department,
+                                 @RequestParam("salary") int salary) {
+        Employee result = employeeService.removeEmployee(firstName, lastName, department, salary);
         return generateMessage(result, "удален");
     }
 
     @GetMapping(path = "/find")
-    public Employee findEmployee(@RequestParam ("firstName") String firstName,
-                                 @RequestParam ("lastName") String lastName) {
+    public Employee findEmployee(@RequestParam("firstName") String firstName,
+                                 @RequestParam("lastName") String lastName) {
         return employeeService.findEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/all")
     public Collection<Employee> allEmployee() {
-        return employeeService.getAllEmployee();
+        return employeeService.getAllEmployees();
     }
 
     private String generateMessage(Employee employee, String status) {

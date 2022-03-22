@@ -19,24 +19,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName, String department, int salary) {
         String key = getKey(firstName, lastName);
 
         if (employees.containsKey(key)) {
             throw new EmployeeExistsException("Сотрудник уже есть в списке");
         }
-        Employee newEmployee = new Employee(firstName, lastName);
+        Employee newEmployee = new Employee(firstName, lastName, department,salary);
         employees.put(key, newEmployee);
         return newEmployee;
     }
 
     @Override
-    public Employee removeEmployee(String firstName, String lastName) {
+    public Employee removeEmployee(String firstName, String lastName, String department, int salary) {
         String key = getKey(firstName, lastName);
         if (employees.remove(key) == null) {
             throw new EmployeeNotFoundException("Сотрудника нет в списке");
         }
-        Employee removedEmployee = new Employee(firstName, lastName);
+        Employee removedEmployee = new Employee(firstName, lastName, department, salary);
         return removedEmployee;
     }
 
@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Collection<Employee> getAllEmployee() {
+    public Collection<Employee> getAllEmployees() {
         return Collections.unmodifiableCollection(employees.values());
     }
 
