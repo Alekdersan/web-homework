@@ -13,10 +13,10 @@ import java.util.Collection;
 @RequestMapping(path = "/employee")
 public class EmployeeController {
 
+
     private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
-
         this.employeeService = employeeService;
     }
 
@@ -54,6 +54,5 @@ public class EmployeeController {
                 employee.getFirstName(),
                 employee.getLastName(),
                 status);
-
     }
 }

@@ -1,6 +1,5 @@
 package pro.sky.java.cours2.webhomework.service.impl;
 
-
 import org.springframework.stereotype.Service;
 import pro.sky.java.cours2.webhomework.data.Employee;
 import pro.sky.java.cours2.webhomework.exception.EmployeeExistsException;
@@ -54,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Collection<Employee> getAllEmployees() {
         return Collections.unmodifiableCollection(employees.values());
     }
+
 
     private String getKey(String firstName, String lastName) {
         return firstName + " " + lastName;

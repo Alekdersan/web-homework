@@ -3,6 +3,7 @@ package pro.sky.java.cours2.webhomework.data;
 
 import java.util.Objects;
 
+
 public class Employee {
 
     private final String firstName;
