@@ -4,9 +4,13 @@ import org.springframework.stereotype.Service;
 import pro.sky.java.cours2.webhomework.data.Employee;
 import pro.sky.java.cours2.webhomework.exception.EmployeeExistsException;
 import pro.sky.java.cours2.webhomework.exception.EmployeeNotFoundException;
+import pro.sky.java.cours2.webhomework.exception.InvalidNamesException;
 import pro.sky.java.cours2.webhomework.service.EmployeeService;
 
 import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.isAlpha;
+import static org.apache.tomcat.util.IntrospectionUtils.capitalize;
 
 
 @Service
@@ -20,13 +24,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, String department, int salary) {
-        String key = getKey(firstName, lastName);
+        validateNames(firstName, lastName);
 
-        if (employees.containsKey(key)) {
+        Employee newEmployee = new Employee(
+                capitalize(firstName),
+                capitalize(lastName),
+                department,
+                salary
+        );
+
+        if (employees.containsKey(getKey(firstName, lastName))) {
             throw new EmployeeExistsException("Сотрудник уже есть в списке");
         }
-        Employee newEmployee = new Employee(firstName, lastName, department,salary);
-        employees.put(key, newEmployee);
+
+        employees.put(getKey(firstName, lastName), newEmployee);
         return newEmployee;
     }
 
@@ -36,17 +47,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.remove(key) == null) {
             throw new EmployeeNotFoundException("Сотрудника нет в списке");
         }
-        Employee removedEmployee = new Employee(firstName, lastName, department, salary);
-        return removedEmployee;
+        return new Employee(firstName, lastName, department, salary);
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         String key = getKey(firstName, lastName);
         Employee employee = employees.get(key);
-        if (employee == null) {
-            throw new EmployeeNotFoundException("Сотрудника нет в списке");
-        }
+
+        if (!employees.containsKey(getKey(firstName, lastName)))
+            if (employee == null) {
+                throw new EmployeeNotFoundException("Сотрудника нет в списке");
+            }
         return employee;
     }
 
@@ -55,8 +67,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Collections.unmodifiableCollection(employees.values());
     }
 
-
     private String getKey(String firstName, String lastName) {
         return firstName + " " + lastName;
+    }
+
+    private void validateNames(String... names) {
+        for (String name : names) {
+            if (!isAlpha(name)) {
+                try {
+                    throw new InvalidNamesException(name);
+                } catch (InvalidNamesException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

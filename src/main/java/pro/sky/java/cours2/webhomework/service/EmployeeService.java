@@ -2,6 +2,7 @@ package pro.sky.java.cours2.webhomework.service;
 
 import pro.sky.java.cours2.webhomework.data.Employee;
 
+import javax.naming.InvalidNameException;
 import java.util.Collection;
 
 public interface EmployeeService {
